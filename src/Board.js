@@ -237,13 +237,29 @@
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
       var startRow;
       var startCol;
+      var loopEnd;
       var tally = 0;
       var rows = this.rows();
-
+      if( minorDiagonalColumnIndexAtFirstRow > rows.length - 1 ){
+        startRow = minorDiagonalColumnIndexAtFirstRow - (rows.length - 1);
+        startCol = (rows.length - 1);
+        loopEnd = startCol - startRow + 1;
+      }else{
+        startRow = 0;
+        startCol = minorDiagonalColumnIndexAtFirstRow;
+        loopEnd = startCol + 1;
+      }
+      for( var i = 0; i < loopEnd; i++ ){
+        tally += rows[startRow][startCol];
+        startRow++;
+        startCol--;
+      }
+      return tally > 1;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
+
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
