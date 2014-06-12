@@ -220,7 +220,7 @@
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
       var n = this.rows().length;
-      for(var i = (-n + 2); i <= n - 2; i++){
+      for(var i = (-n + 2); i <= (n - 2); i++){
         if(this.hasMajorDiagonalConflictAt(i)){
           return true;
         }
@@ -259,7 +259,13 @@
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-
+      var n = this.rows().length;
+      for( var i = 1; i <= (n + 2); i++ ){
+        if (this.hasMinorDiagonalConflictAt(i)){
+          return true;
+        }
+      }
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
