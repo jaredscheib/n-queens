@@ -77,14 +77,54 @@
     // ROWS - run from left to right
     // --------------------------------------------------------------
     //
+
+    // Inputs:
+    // Outputs:
+    // Known:
+    // Const:
+
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      // Input: number (of row)
+      // Outputs: true if conflict in row, false if no conflict
+      // Known: conflict is when there is at least one 1 in row
+      // Known: 0 or 1 in each position of board to start with
+
+      // create variable to tally 1s in row
+      var hasConflict = false;
+      var tally = 0;
+      // store row temporarily
+      var tempRow = this.get(rowIndex);
+      // iterate through elements in row
+      for( var i = 0; i < tempRow.length; i++ ){
+        // add up element values
+        tally += tempRow[i];
+      }
+
+      // if tally is greater than 1
+      if( tally > 1 ){
+        hasConflict = true;
+      // else
+      }else{
+        hasConflict = false;
+      }
+      return hasConflict;
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      // get an array of rows
+      var rows = this.rows();
+      // For each row
+      for(var i = 0; i < rows.length; i++){
+        // if row has a conflict
+        if(this.hasRowConflictAt(i)){
+        // return true;
+          return true;
+        }
+      }
+      // return false
+      return false;
     },
 
 
@@ -94,12 +134,33 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      // create var for tally
+      var tally = 0;
+      // get rows
+      var rows = this.rows();
+      // iterate over each row
+      for(var i = 0; i < rows.length; i++){
+        // add item at row colIndex to tally
+        tally += rows[i][colIndex];
+        // check if tally > 1
+        if(tally > 1){
+          // return true
+          return true;
+        }
+      }
+      // return false
+      return false;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      var totalCols = this.rows().length;
+      for(var i = 0; i < totalCols; i++){
+        if(this.hasColConflictAt(i)){
+          return true;
+        }
+      }
+      return false;
     },
 
 
@@ -109,12 +170,62 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      // create starting row variable
+      var startRow;
+      // create starting column variable
+      var startCol;
+      // create start of loop variable
+      var index;
+      // create tally variable
+      var tally = 0;
+      // create rows variable
+      var rows = this.rows();
+      // if input is less than 0
+      console.log('major: ', majorDiagonalColumnIndexAtFirstRow);
+      if( majorDiagonalColumnIndexAtFirstRow < 0 ){
+        // set starting row to absolute value of input
+        startRow = Math.abs(majorDiagonalColumnIndexAtFirstRow);
+        console.log('startRow: ', startRow);
+        // set starting column to 0
+        startCol = 0;
+        // set start of loop to starting row value
+        index = startRow;
+      // else (if input is greater than or equal to 0)
+      }else{
+        // set starting column to input
+        startCol = majorDiagonalColumnIndexAtFirstRow;
+        console.log('startCol: ', startCol);
+        // set starting row to 0
+        startRow = 0;
+        // set start of loop to starting column value
+        index = startCol;
+      }
+      // iterate from start of loop to n (rows.length)
+      for( index; index < rows.length; index++ ){
+        // add value at board's [row][column] to tally
+        tally += rows[startRow][startCol];
+        // increment starting row
+        startRow++;
+        // increment starting column
+        startCol++;
+      }
+      // return true if tally is greater than 1 (conflict), else false
+      if( tally > 1 ){
+        return true;
+      }else{
+        return false;
+      }
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      var n = this.rows().length;
+      for(var i = (-n + 2); i <= n - 2; i++){
+        if(this.hasMajorDiagonalConflictAt(i)){
+          return true;
+        }
+      }
+      return false;
     },
 
 
@@ -124,12 +235,15 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var startRow;
+      var startCol;
+      var tally = 0;
+      var rows = this.rows();
+
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
@@ -146,3 +260,20 @@
   };
 
 }());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
