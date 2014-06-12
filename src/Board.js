@@ -181,11 +181,9 @@
       // create rows variable
       var rows = this.rows();
       // if input is less than 0
-      console.log('major: ', majorDiagonalColumnIndexAtFirstRow);
       if( majorDiagonalColumnIndexAtFirstRow < 0 ){
         // set starting row to absolute value of input
         startRow = Math.abs(majorDiagonalColumnIndexAtFirstRow);
-        console.log('startRow: ', startRow);
         // set starting column to 0
         startCol = 0;
         // set start of loop to starting row value
@@ -194,7 +192,6 @@
       }else{
         // set starting column to input
         startCol = majorDiagonalColumnIndexAtFirstRow;
-        console.log('startCol: ', startCol);
         // set starting row to 0
         startRow = 0;
         // set start of loop to starting column value
