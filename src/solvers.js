@@ -63,8 +63,34 @@ window.countNRooksSolutions = function(n) {
   // KNOWN: need a tally of all working solutions of test boards
   // UNKNOWN:
   // CONSTRAINTS:
-  var solutionCount = undefined; //fixme
 
+  // create solution tally
+  var solutionCount = 0;
+
+  // recursive function taking row index and conflicts object
+  var recurse = function(row, conflicts){
+    // iterate over columns
+    for(var i = 0; i < n; i++){
+      // check for a conflict
+      if(!conflicts[i]){
+        // if last row, increment solution count
+        if( row === (n - 1) ) {
+          solutionCount++;
+        }else{
+          // place a rook and set conflict in that column
+          conflicts[i] = true;
+          // recurse to incremented row index and updated conflicts object
+          recurse(row + 1, conflicts);
+          // remove last conflict
+          delete conflicts[i];
+        }
+      }
+    }
+  };
+  // start recursive function, passing in row zero and empty conflict object
+  recurse(0, {});
+
+  // return solution tally
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
 };
